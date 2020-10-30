@@ -1,6 +1,6 @@
-// Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: LicenseRef-.amazon.com.-AmznSL-1.0
-// Licensed under the Amazon Software License  http://aws.amazon.com/asl/
+# Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: LicenseRef-.amazon.com.-AmznSL-1.0
+# Licensed under the Amazon Software License  http://aws.amazon.com/asl/
 
 # pre-calculate elmo embeddings of each sentence in each dialog
 import sys
@@ -10,13 +10,15 @@ import pickle
 from tqdm import tqdm
 
 from allennlp.modules.elmo import Elmo, batch_to_ids
-from allennlp.data.tokenizers import WordTokenizer, Token
-from allennlp.data.tokenizers.word_splitter import SpacyWordSplitter
+from allennlp.data.tokenizers import SpacyTokenizer, Token
+#from allennlp.data.tokenizers.word_splitter import SpacyWordSplitter
+# unavailable in allennlp 1.0.0+
 
 base_path = sys.argv[1]
-train_data_path = base_path + "/train.json"
-dev_data_path = base_path + "/dev.json"
-test_data_path = base_path + "/test.json"
+train_data_path = base_path + "/train_dials.json"
+dev_data_path = base_path + "/dev_dials.json"
+########################
+test_data_path = base_path + "/test_dials.json"
 data_paths = {"train": train_data_path, "dev": dev_data_path, "test": test_data_path}
 data_path = data_paths[sys.argv[2]]
 output_path = sys.argv[3] + "/" + sys.argv[2]
@@ -26,7 +28,7 @@ weight_file = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x2048_25
 
 def read_dataset(file_path):
   with open(file_path) as dataset_file:
-    tokenizer = WordTokenizer(word_splitter=SpacyWordSplitter())
+    tokenizer = SpacyTokenizer()
     dataset_json = json.load(dataset_file)
     dialogs = []
     for dialog in dataset_json:
@@ -56,7 +58,8 @@ def calc_elmo_embeddings(elmo, dialog):
   # 3 layers in ELMo (i.e., charcnn, the outputs of the two BiLSTM))
   
   # use batch_to_ids to convert sentences to character ids
-  character_ids = batch_to_ids(dialog).cuda()
+  #character_ids = batch_to_ids(dialog).cuda()
+  character_ids = batch_to_ids(dialog)
   dialog_embeddings = []
   for i in range(3):
     embeddings = elmo[i](character_ids)
@@ -70,15 +73,19 @@ def calc_elmo_embeddings(elmo, dialog):
 #https://github.com/allenai/allennlp/blob/master/tutorials/how_to/elmo.md 
 #After loading the pre-trained model, the first few batches will be negatively impacted until the biLM can reset its internal states. You may want to run a few batches through the model to warm up the states before making predictions (although we have not worried about this issue in practice).
 def elmo_warm_up(elmo, dialog):
-  character_ids = batch_to_ids(dialog).cuda()
+  #character_ids = batch_to_ids(dialog).cuda()
+  character_ids = batch_to_ids(dialog)
   for i in range(3):
     for _ in range(20):
       elmo[i](character_ids)
   
 elmo = [None] * 3 
-elmo[0] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[1.0, 0, 0]).cuda()
-elmo[1] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 1.0, 0]).cuda()
-elmo[2] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 0, 1.0]).cuda()
+#elmo[0] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[1.0, 0, 0]).cuda()
+#elmo[1] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 1.0, 0]).cuda()
+#elmo[2] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 0, 1.0]).cuda()
+elmo[0] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[1.0, 0, 0])
+elmo[1] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 1.0, 0])
+elmo[2] = Elmo(options_file, weight_file, 1, dropout=0, scalar_mix_parameters=[0, 0, 1.0])
 dialogs = read_dataset(data_path)
 elmo_warm_up(elmo, dialogs[0][1])
 dialog_embeddings = {}

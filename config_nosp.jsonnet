@@ -204,7 +204,7 @@ local phrase_layer_type = "gru"; # gru or stacked_self_attention
     "trainer": {
         "num_serialized_models_to_keep": 1,
         "keep_serialized_model_every_num_seconds": 60 * 30,
-        "cuda_device": 0,
+        "cuda_device": -1, ##################change from 0 to -1 using cpus
         "num_epochs": 1000,
         "optimizer": {
             "type": "adam",

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 SAVE_MODEL_PATH=./model
 ALLENNLP_PATH=/home/ubuntu/anaconda3/envs/pytorch_p36/bin/allennlp
 rm -r ${SAVE_MODEL_PATH}
