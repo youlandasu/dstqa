@@ -1,0 +1,48 @@
+2020-10-28 23:00:58,873 - INFO - allennlp.common.params - random_seed = 13370
+2020-10-28 23:00:58,874 - INFO - allennlp.common.params - numpy_seed = 1337
+2020-10-28 23:00:58,874 - INFO - allennlp.common.params - pytorch_seed = 133
+2020-10-28 23:00:58,876 - INFO - allennlp.common.checks - Pytorch version: 1.4.0
+2020-10-28 23:00:58,878 - INFO - allennlp.common.params - evaluate_on_test = False
+2020-10-28 23:00:58,878 - INFO - allennlp.common.params - validation_dataset_reader = None
+2020-10-28 23:00:58,878 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.dataset_readers.dataset_reader.DatasetReader'> from params {'domain_slot_list_path': './ontology/domain_slot_list_nosp.txt', 'lazy': False, 'token_indexers': {'token_characters': {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'min_padding_length': 5, 'type': 'characters'}}, 'tokenizer': {'type': 'word', 'word_splitter': {'ner': False, 'pos_tags': False, 'type': 'spacy'}}, 'type': 'dstqa'} and extras set()
+2020-10-28 23:00:58,879 - INFO - allennlp.common.params - dataset_reader.type = dstqa
+2020-10-28 23:00:58,879 - INFO - allennlp.common.from_params - instantiating class <class 'dstqa.dstqa_reader.DSTQAReader'> from params {'domain_slot_list_path': './ontology/domain_slot_list_nosp.txt', 'lazy': False, 'token_indexers': {'token_characters': {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'min_padding_length': 5, 'type': 'characters'}}, 'tokenizer': {'type': 'word', 'word_splitter': {'ner': False, 'pos_tags': False, 'type': 'spacy'}}} and extras set()
+2020-10-28 23:00:58,879 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.tokenizer.Tokenizer'> from params {'type': 'word', 'word_splitter': {'ner': False, 'pos_tags': False, 'type': 'spacy'}} and extras set()
+2020-10-28 23:00:58,879 - INFO - allennlp.common.params - dataset_reader.tokenizer.type = word
+2020-10-28 23:00:58,879 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.word_tokenizer.WordTokenizer'> from params {'word_splitter': {'ner': False, 'pos_tags': False, 'type': 'spacy'}} and extras set()
+2020-10-28 23:00:58,881 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.word_splitter.WordSplitter'> from params {'ner': False, 'pos_tags': False, 'type': 'spacy'} and extras set()
+2020-10-28 23:00:58,881 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.type = spacy
+2020-10-28 23:00:58,881 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.word_splitter.SpacyWordSplitter'> from params {'ner': False, 'pos_tags': False} and extras set()
+2020-10-28 23:00:58,882 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.language = en_core_web_sm
+2020-10-28 23:00:58,882 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.pos_tags = False
+2020-10-28 23:00:58,882 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.parse = False
+2020-10-28 23:00:58,882 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.ner = False
+2020-10-28 23:00:58,883 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.keep_spacy_tokens = False
+2020-10-28 23:00:58,883 - INFO - allennlp.common.params - dataset_reader.tokenizer.word_splitter.split_on_spaces = False
+2020-10-28 23:00:59,003 - WARNING - allennlp.common.util - Spacy models 'en_core_web_sm' not found.  Downloading and installing.
+2020-10-28 23:01:04,032 - INFO - allennlp.common.params - dataset_reader.tokenizer.start_tokens = None
+2020-10-28 23:01:04,033 - INFO - allennlp.common.params - dataset_reader.tokenizer.end_tokens = None
+2020-10-28 23:01:04,034 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.token_indexer.TokenIndexer from params {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'min_padding_length': 5, 'type': 'characters'} and extras set()
+2020-10-28 23:01:04,034 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.type = characters
+2020-10-28 23:01:04,034 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.token_characters_indexer.TokenCharactersIndexer from params {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'min_padding_length': 5} and extras set()
+2020-10-28 23:01:04,035 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.namespace = token_characters
+2020-10-28 23:01:04,035 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.character_tokenizer.CharacterTokenizer'> from params {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]} and extras set()
+2020-10-28 23:01:04,035 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.byte_encoding = utf-8
+2020-10-28 23:01:04,035 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.lowercase_characters = False
+2020-10-28 23:01:04,035 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.start_tokens = [259]
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.end_tokens = [260]
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.start_tokens = None
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.end_tokens = None
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.min_padding_length = 5
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.token_min_padding_length = 0
+2020-10-28 23:01:04,036 - INFO - allennlp.common.params - dataset_reader.lazy = False
+2020-10-28 23:01:04,037 - INFO - allennlp.common.params - dataset_reader.domain_slot_list_path = ./ontology/domain_slot_list_nosp.txt
+2020-10-28 23:01:04,044 - INFO - allennlp.common.params - train_data_path = ./data/train.json
+2020-10-28 23:01:04,045 - INFO - allennlp.training.util - Reading training data from ./data/train.json
+[38;5;2m✔ Download and installation successful[0m
+You can now load the model via spacy.load('en_core_web_sm')
+[38;5;2m✔ Linking successful[0m
+/Users/ruolinsu/anaconda3/envs/dstqa/lib/python3.6/site-packages/en_core_web_sm
+-->
+/Users/ruolinsu/anaconda3/envs/dstqa/lib/python3.6/site-packages/spacy/data/en_core_web_sm
+You can now load the model via spacy.load('en_core_web_sm')
