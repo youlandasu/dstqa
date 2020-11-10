@@ -15,10 +15,10 @@ from allennlp.data.tokenizers import SpacyTokenizer, Token
 # unavailable in allennlp 1.0.0+
 
 base_path = sys.argv[1]
-train_data_path = base_path + "/train_dials.json"
-dev_data_path = base_path + "/dev_dials.json"
+train_data_path = base_path + "/train.json"
+dev_data_path = base_path + "/dev.json"
 ########################
-test_data_path = base_path + "/test_dials.json"
+test_data_path = base_path + "/test.json"
 data_paths = {"train": train_data_path, "dev": dev_data_path, "test": test_data_path}
 data_path = data_paths[sys.argv[2]]
 output_path = sys.argv[3] + "/" + sys.argv[2]

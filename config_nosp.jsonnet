@@ -1,6 +1,6 @@
 local train_data_path = "./data/train.json";
 local validation_data_path = "./data/dev.json";
-local elmo_embedding_path = "./data/elmo_embeddings/all/";
+local elmo_embedding_path = "./data/elmo_embeddings/";
 local domain_slot_list_path = "./ontology/domain_slot_list_nosp.txt";
 local base_dim = 612; # 512 + 100
 local symbol_dim = 128;
@@ -205,7 +205,7 @@ local phrase_layer_type = "gru"; # gru or stacked_self_attention
         "num_serialized_models_to_keep": 1,
         "keep_serialized_model_every_num_seconds": 60 * 30,
         "cuda_device": -1, ##################change from 0 to -1 using cpus
-        "num_epochs": 1000,
+        "num_epochs": 5, ################ change from 1000 to 5
         "optimizer": {
             "type": "adam",
             "lr": 0.001,

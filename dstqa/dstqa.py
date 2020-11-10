@@ -109,6 +109,7 @@ class DSTQA(Model):
     self._bi_dropout = torch.nn.Dropout(bi_dropout)
     self._dropout2 = torch.nn.Dropout(0.1)
     self._sigmoid = torch.nn.Sigmoid()
+    self._device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     initializer(self)
 
   def load_elmo_embeddings(self, elmo_embedding_path):
@@ -119,7 +120,7 @@ class DSTQA(Model):
     return elmo_embeddings
 
   def gen_utt_masks(self, turn_offset, batch_size, max_turn_count, max_dialog_len):
-    masks = torch.arange(0, max_dialog_len).unsqueeze(0).unsqueeze(0).cuda()
+    masks = torch.arange(0, max_dialog_len).unsqueeze(0).unsqueeze(0).to(self._device)
     masks = masks.repeat(batch_size, max_turn_count, 1)
     repeated_turn_offset = turn_offset.unsqueeze(2).repeat(1, 1, max_dialog_len)
     masks = masks < repeated_turn_offset
@@ -136,12 +137,12 @@ class DSTQA(Model):
     for idx in dialog_indices:
       elmo_embeddings_cuda = []
       for v in self._dialog_elmo_embeddings[idx]:
-        elmo_embeddings_cuda.append(v.cuda())
+        elmo_embeddings_cuda.append(v.to(self._device))
       dialog_embeddings.append(self._dialog_scalar_mix(elmo_embeddings_cuda))
       if max_dialog_len < dialog_embeddings[-1].size(0):
         max_dialog_len = dialog_embeddings[-1].size(0)
     for i, e in enumerate(dialog_embeddings):
-      pad = torch.zeros(max_dialog_len - e.size(0), e.size(1)).cuda()
+      pad = torch.zeros(max_dialog_len - e.size(0), e.size(1)).to(self._device)
       dialog_embeddings[i] = torch.cat((e, pad), dim=0)
     dialog_embeddings = torch.stack(dialog_embeddings, dim=0)
     return dialog_embeddings
@@ -150,8 +151,8 @@ class DSTQA(Model):
     batch_size, max_dialog_len, max_char_len = dialogs['token_characters'].size()
     masks = self._dropout2(torch.ones(batch_size, max_dialog_len))
     masks = masks < 0.5
-    char_masked = torch.tensor([259, 260] + [0] * (max_char_len - 2)).cuda()
-    char_padded = torch.tensor([0] * max_char_len).cuda()
+    char_masked = torch.tensor([259, 260] + [0] * (max_char_len - 2)).to(self._device)
+    char_padded = torch.tensor([0] * max_char_len).to(self._device)
     dialogs["token_characters"][masks] = char_masked
     dialogs["token_characters"][dialog_masks == 0] = char_padded
 
@@ -159,8 +160,8 @@ class DSTQA(Model):
       dialogs["tokens"][masks] = 1  # 1 is the index for unknown
       dialogs["tokens"][dialog_masks == 0] = 0
     if "elmo" in dialogs:
-      elmo_masked = torch.tensor([259, 260] + [261] * (50 - 2)).cuda()
-      elmo_padded = torch.tensor([0] * 50).cuda()
+      elmo_masked = torch.tensor([259, 260] + [261] * (50 - 2)).to(self._device)
+      elmo_padded = torch.tensor([0] * 50).to(self._device)
       dialogs["elmo"][masks] = elmo_masked
       dialogs["elmo"][dialog_masks == 0] = elmo_padded
 
@@ -416,7 +417,7 @@ class DSTQA(Model):
       dataset.index_instances(vocab)
       res = {}
       for k, v in dataset.as_tensor_dict()['b'].items():
-        res[k] = v.cuda()
+        res[k] = v.to(self._device)
       return res
 
     ds_ids = batch_to_id(self._ds_id2text)

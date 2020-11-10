@@ -55,7 +55,7 @@
         },
         "domain_slot_list_path": "./ontology/domain_slot_list_nosp.txt",
         "dropout": 0.5,
-        "elmo_embedding_path": "./data/elmo_embeddings/all/",
+        "elmo_embedding_path": "./data/elmo_embeddings/",
         "initializer": [],
         "loss_scale_by_num_values": false,
         "phrase_layer": {
@@ -162,7 +162,7 @@
     "trainer": {
         "cuda_device": -1,
         "keep_serialized_model_every_num_seconds": 1800,
-        "num_epochs": 1000,
+        "num_epochs": 5,
         "num_serialized_models_to_keep": 1,
         "optimizer": {
             "type": "adam",
