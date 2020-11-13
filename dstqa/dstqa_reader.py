@@ -99,11 +99,12 @@ class DSTQAReader(DatasetReader):
                 cur_labels = []
                 cur_spans = []
                 cur_span_labels = []  # 0: none; 1: dont care; 2: span
-                domain = turn['domain']
-                domain = domain.lower().strip(" \n")
                 turn_label = turn['belief_state']
                 for label in turn_label:
-                    for slot, value in label['slots']:
+                    for d_s, value in label['slots']:
+                        domain, slot = d_s.split('-')
+                        domain = domain.lower().strip(" \n")
+                        #ds = domain + " " + slot
                         ds = domain + " " + slot
                         if ds not in self._ds_text2id: continue
                         slot, value = slot.lower().strip(" \n"), value.lower().strip(" \n")

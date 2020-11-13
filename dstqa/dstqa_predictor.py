@@ -78,10 +78,10 @@ class DSTQAPredictor(Predictor):
             cur_spans = []
             cur_span_labels = []  # 0: none; 1: dont care; 2: span
             turn_label = turn['belief_state']
-            for domain, val in turn_label.items():
-                domain = domain.lower().strip(" \n")
-                val = val["semi"]
-                for slot, value in val.items():
+            for label in turn_label:
+                for d_s, value in label['slots']:
+                    domain, slot = d_s.split('-')
+                    domain = domain.lower().strip(" \n")
                     ds = domain + " " + slot
                     if ds not in self._ds_text2id: continue
                     slot, value = slot.lower().strip(" \n"), value.lower().strip(" \n")

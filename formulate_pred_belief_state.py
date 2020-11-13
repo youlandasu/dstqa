@@ -93,8 +93,13 @@ for dialog, prediction in dialogs:
   for turn in dialog["dialogue"]:
     turn_bs = []
     ds_set = set(ds_list)
-    for domain, v in turn["belief_state"].items():
-      for slot, slot_value in v["semi"].items():
+    turn_label = turn['belief_state']
+    for label in turn_label:
+      for d_s, slot_value in label['slots']:
+        domain, slot = d_s.split('-')
+        domain = domain.lower().strip(" \n")
+    #for domain, v in turn["belief_state"].items():
+    #  for slot, slot_value in v["semi"].items():
         ds = domain + " " + slot
         if ds not in ontology:
           continue

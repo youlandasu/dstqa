@@ -1,6 +1,7 @@
 import json
 import sys
 
+
 base_path = sys.argv[1]
 train_data_path = base_path + "/train_dials.json"
 dev_data_path = base_path + "/dev_dials.json"
@@ -16,10 +17,21 @@ json_file.close()
 
 result = []
 for item in data:
-    #if len(result) < 10:
-    if item["dialogue_idx"] == filename:
+    if len(result) < 100:
+    #if item["dialogue_idx"] == filename:
         result.append(item)
 output_json = json.dumps(result)
 with open(output_path, 'w') as output_file:
     output_file.write(output_json)
 output_file.close()
+'''
+test_path = sys.argv[1]
+prediction_path = sys.argv[2]
+with open(test_path) as json_file:
+    data = json.load(json_file)
+json_file.close()
+with open(prediction_path, 'w') as file_handle:
+    for t in data:
+        file_handle.write( str(t).replace("'","\"")  + '\n')
+file_handle.close()
+'''

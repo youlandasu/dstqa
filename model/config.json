@@ -162,7 +162,7 @@
     "trainer": {
         "cuda_device": -1,
         "keep_serialized_model_every_num_seconds": 1800,
-        "num_epochs": 5,
+        "num_epochs": 10,
         "num_serialized_models_to_keep": 1,
         "optimizer": {
             "type": "adam",
